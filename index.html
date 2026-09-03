@@ -153,6 +153,82 @@
             min-height: 24px;
         }
 
+        /* Estilos para la sección de Resultados (Página 11) */
+        .results-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .donut-chart-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 1.5rem auto;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .donut-hole {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+        }
+
+        .results-summary-cards {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .result-card {
+            padding: 1rem 1.5rem;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            color: var(--white);
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .card-correct { background-color: var(--correct-green); }
+        .card-wrong { background-color: var(--wrong-red); }
+
+        .breakdown-list {
+            margin-top: 2rem;
+            border-top: 2px solid var(--light-blue);
+            padding-top: 1.5rem;
+        }
+
+        .breakdown-item {
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-size: 0.95rem;
+        }
+
+        .breakdown-item.item-correct {
+            background-color: #e8f5e9;
+            border-color: var(--correct-green);
+        }
+
+        .breakdown-item.item-wrong {
+            background-color: #ffebee;
+            border-color: var(--wrong-red);
+        }
+
         footer {
             background-color: var(--primary-blue);
             color: var(--white);
@@ -192,6 +268,10 @@
             .play-btn {
                 margin-bottom: 0.5rem;
             }
+            .results-summary-cards {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
@@ -213,46 +293,22 @@
                 <img src="sec1.png" alt="Section 1 Illustration" class="story-image">
             </div>
             <div class="story-text">
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(0, 3)">▶️</button>
-                    <div class="text-content">The time is one o'clock in the morning.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(3.5, 6.5)">▶️</button>
-                    <div class="text-content">The place is the Ritesville town art gallery.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(7, 11)">▶️</button>
-                    <div class="text-content">A window opens and a man comes in. It's Harry Black. He is a thief.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(11.5, 15)">▶️</button>
-                    <div class="text-content">He looks at the painting. It is a painting of a woman.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(15.5, 20)">▶️</button>
-                    <div class="text-content">Harry moves quickly across the room. He stands and looks at the painting.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(20.5, 26)">▶️</button>
-                    <div class="text-content">"A million dollars for this?" he thinks. "I don't understand it."</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(26.5, 29)">▶️</button>
-                    <div class="text-content">But he takes a knife from his coat.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(29.5, 34)">▶️</button>
-                    <div class="text-content">Then he takes the painting very, very slowly from its frame.</div>
-                </div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(0, 3)">▶️</button><div class="text-content">The time is one o'clock in the morning.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(3.5, 6.5)">▶️</button><div class="text-content">The place is the Ritesville town art gallery.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(7, 11)">▶️</button><div class="text-content">A window opens and a man comes in. It's Harry Black. He is a thief.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(11.5, 15)">▶️</button><div class="text-content">He looks at the painting. It is a painting of a woman.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(15.5, 20)">▶️</button><div class="text-content">Harry moves quickly across the room. He stands and looks at the painting.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(20.5, 26)">▶️</button><div class="text-content">"A million dollars for this?" he thinks. "I don't understand it."</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(26.5, 29)">▶️</button><div class="text-content">But he takes a knife from his coat.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(29.5, 34)">▶️</button><div class="text-content">Then he takes the painting very, very slowly from its frame.</div></div>
             </div>
             <div class="quiz-section">
                 <h3>Comprehension Check</h3>
                 <p>Where does the story begin?</p>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback1')">A. A police station</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback1')">B. A school</button>
-                <button class="quiz-option" onclick="checkAnswer(this, true, 'feedback1')">C. The Ritesville town art gallery</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback1')">D. A hotel</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 1, false, 'A. A police station', 'feedback1')">A. A police station</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 1, false, 'B. A school', 'feedback1')">B. A school</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 1, true, 'C. The Ritesville town art gallery', 'feedback1')">C. The Ritesville town art gallery</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 1, false, 'D. A hotel', 'feedback1')">D. A hotel</button>
                 <div id="feedback1" class="feedback"></div>
             </div>
         </div>
@@ -264,34 +320,19 @@
                 <img src="sec2.png" alt="Section 2 Illustration" class="story-image">
             </div>
             <div class="story-text">
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(35, 40)">▶️</button>
-                    <div class="text-content">Harry goes back across the room to the window, but he walks into a table.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(40.5, 43)">▶️</button>
-                    <div class="text-content">There is a beautiful blue glass vase on the table.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(43.5, 47)">▶️</button>
-                    <div class="text-content">It falls on the floor and breaks into a hundred pieces.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(47.5, 52)">▶️</button>
-                    <div class="text-content">Harry smiles. "Is that a million-dollar vase?" he thinks. "It isn't now!"</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(52.5, 56)">▶️</button>
-                    <div class="text-content">He runs across the pieces of glass to the window.</div>
-                </div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(35, 40)">▶️</button><div class="text-content">Harry goes back across the room to the window, but he walks into a table.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(40.5, 43)">▶️</button><div class="text-content">There is a beautiful blue glass vase on the table.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(43.5, 47)">▶️</button><div class="text-content">It falls on the floor and breaks into a hundred pieces.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(47.5, 52)">▶️</button><div class="text-content">Harry smiles. "Is that a million-dollar vase?" he thinks. "It isn't now!"</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(52.5, 56)">▶️</button><div class="text-content">He runs across the pieces of glass to the window.</div></div>
             </div>
             <div class="quiz-section">
                 <h3>Comprehension Check</h3>
                 <p>What breaks into a hundred pieces?</p>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback2')">A. A window</button>
-                <button class="quiz-option" onclick="checkAnswer(this, true, 'feedback2')">B. A beautiful blue glass vase</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback2')">C. A painting</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback2')">D. A knife</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 2, false, 'A. A window', 'feedback2')">A. A window</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 2, true, 'B. A beautiful blue glass vase', 'feedback2')">B. A beautiful blue glass vase</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 2, false, 'C. A painting', 'feedback2')">C. A painting</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 2, false, 'D. A knife', 'feedback2')">D. A knife</button>
                 <div id="feedback2" class="feedback"></div>
             </div>
         </div>
@@ -303,30 +344,18 @@
                 <img src="sec3.png" alt="Section 3 Illustration" class="story-image">
             </div>
             <div class="story-text">
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(57, 61)">▶️</button>
-                    <div class="text-content">Harry has a room in Mrs. Allen's rooming house.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(61.5, 65)">▶️</button>
-                    <div class="text-content">He goes quietly up to his room and closes the door.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(65.5, 69)">▶️</button>
-                    <div class="text-content">Mrs. Allen and her daughter, Janey, are sleeping. They don't hear him.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(69.5, 75)">▶️</button>
-                    <div class="text-content">In his room, Harry takes the painting from his bag. He puts it in a newspaper, then he puts the newspaper under his bed.</div>
-                </div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(57, 61)">▶️</button><div class="text-content">Harry has a room in Mrs. Allen's rooming house.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(61.5, 65)">▶️</button><div class="text-content">He goes quietly up to his room and closes the door.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(65.5, 69)">▶️</button><div class="text-content">Mrs. Allen and her daughter, Janey, are sleeping. They don't hear him.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(69.5, 75)">▶️</button><div class="text-content">In his room, Harry takes the painting from his bag. He puts it in a newspaper, then he puts the newspaper under his bed.</div></div>
             </div>
             <div class="quiz-section">
                 <h3>Comprehension Check</h3>
                 <p>What does Harry do with the painting once he is in his room?</p>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback3')">A. He hangs it on the wall.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, true, 'feedback3')">B. He puts it in a newspaper under his bed.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback3')">C. He hides it inside a blue glass vase.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback3')">D. He gives it to Mrs. Allen.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 3, false, 'A. He hangs it on the wall.', 'feedback3')">A. He hangs it on the wall.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 3, true, 'B. He puts it in a newspaper under his bed.', 'feedback3')">B. He puts it in a newspaper under his bed.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 3, false, 'C. He hides it inside a blue glass vase.', 'feedback3')">C. He hides it inside a blue glass vase.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 3, false, 'D. He gives it to Mrs. Allen.', 'feedback3')">D. He gives it to Mrs. Allen.</button>
                 <div id="feedback3" class="feedback"></div>
             </div>
         </div>
@@ -338,46 +367,22 @@
                 <img src="sec4.png" alt="Section 4 Illustration" class="story-image">
             </div>
             <div class="story-text">
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(76, 80)">▶️</button>
-                    <div class="text-content">In the morning, Janey Allen is in the kitchen. She is putting old bottles into a box.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(80.5, 83)">▶️</button>
-                    <div class="text-content">"Recycling is important," Janey thinks.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(83.5, 88)">▶️</button>
-                    <div class="text-content">On the TV, a reporter is at the Ritesville art gallery. He is talking about the painting.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(88.5, 93)">▶️</button>
-                    <div class="text-content">"It's a million-dollar painting," he is saying. "Here's a photo of it."</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(93.5, 98)">▶️</button>
-                    <div class="text-content">Now the reporter is talking about the blue glass vase. "It's in a hundred pieces now," he says.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(98.5, 104)">▶️</button>
-                    <div class="text-content">Janey looks at the photo of the vase, then she asks her mother, "Do you have any old bottles?"</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(104.5, 110)">▶️</button>
-                    <div class="text-content">"No," Mrs. Allen says. "That's all, Janey. But the newspaper recycling truck is coming today."</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(110.5, 114)">▶️</button>
-                    <div class="text-content">"Of course!" Janey says. "It's Friday!"</div>
-                </div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(76, 80)">▶️</button><div class="text-content">In the morning, Janey Allen is in the kitchen. She is putting old bottles into a box.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(80.5, 83)">▶️</button><div class="text-content">"Recycling is important," Janey thinks.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(83.5, 88)">▶️</button><div class="text-content">On the TV, a reporter is at the Ritesville art gallery. He is talking about the painting.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(88.5, 93)">▶️</button><div class="text-content">"It's a million-dollar painting," he is saying. "Here's a photo of it."</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(93.5, 98)">▶️</button><div class="text-content">Now the reporter is talking about the blue glass vase. "It's in a hundred pieces now," he says.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(98.5, 104)">▶️</button><div class="text-content">Janey looks at the photo of the vase, then she asks her mother, "Do you have any old bottles?"</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(104.5, 110)">▶️</button><div class="text-content">"No," Mrs. Allen says. "That's all, Janey. But the newspaper recycling truck is coming today."</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(110.5, 114)">▶️</button><div class="text-content">"Of course!" Janey says. "It's Friday!"</div></div>
             </div>
             <div class="quiz-section">
                 <h3>Comprehension Check</h3>
                 <p>What does Janey realize when she talks to her mother?</p>
-                <button class="quiz-option" onclick="checkAnswer(this, true, 'feedback4')">A. That today is Friday and the recycling truck is coming.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback4')">B. That she missed school.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback4')">C. That Harry is a thief.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback4')">D. That the TV is broken.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 4, true, 'A. That today is Friday and the recycling truck is coming.', 'feedback4')">A. That today is Friday and the recycling truck is coming.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 4, false, 'B. That she missed school.', 'feedback4')">B. That she missed school.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 4, false, 'C. That Harry is a thief.', 'feedback4')">C. That Harry is a thief.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 4, false, 'D. That the TV is broken.', 'feedback4')">D. That the TV is broken.</button>
                 <div id="feedback4" class="feedback"></div>
             </div>
         </div>
@@ -389,42 +394,21 @@
                 <img src="sec5.png" alt="Section 5 Illustration" class="story-image">
             </div>
             <div class="story-text">
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(115, 118)">▶️</button>
-                    <div class="text-content">Harry isn't in his room. He is talking on his telephone to a man in Seattle.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(118.5, 122)">▶️</button>
-                    <div class="text-content">The man wants the painting, but Harry isn't happy.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(122.5, 126)">▶️</button>
-                    <div class="text-content">"Five thousand dollars?" Harry says. "No! It's a million-dollar painting!"</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(126.5, 128)">▶️</button>
-                    <div class="text-content">"... What? ..."</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(128.5, 132)">▶️</button>
-                    <div class="text-content">"No, I want fifty thousand, not five!"</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(132.5, 134)">▶️</button>
-                    <div class="text-content">"... What? ..."</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(134.5, 139)">▶️</button>
-                    <div class="text-content">"The painting? Yes, I have it, and it's OK."</div>
-                </div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(115, 118)">▶️</button><div class="text-content">Harry isn't in his room. He is talking on his telephone to a man in Seattle.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(118.5, 122)">▶️</button><div class="text-content">The man wants the painting, but Harry isn't happy.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(122.5, 126)">▶️</button><div class="text-content">"Five thousand dollars?" Harry says. "No! It's a million-dollar painting!"</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(126.5, 128)">▶️</button><div class="text-content">"... What? ..."</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(128.5, 132)">▶️</button><div class="text-content">"No, I want fifty thousand, not five!"</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(132.5, 134)">▶️</button><div class="text-content">"... What? ..."</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(134.5, 139)">▶️</button><div class="text-content">"The painting? Yes, I have it, and it's OK."</div></div>
             </div>
             <div class="quiz-section">
                 <h3>Comprehension Check</h3>
                 <p>Why is Harry unhappy during his telephone conversation?</p>
-                <button class="quiz-option" onclick="checkAnswer(this, true, 'feedback5')">A. Because the man in Seattle only offers five thousand dollars instead of fifty thousand.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback5')">B. Because the police are calling him.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback5')">C. Because Janey took his newspapers.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback5')">D. Because he broke his phone.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 5, true, 'A. Because the man in Seattle only offers five thousand dollars instead of fifty thousand.', 'feedback5')">A. Because the man in Seattle only offers five thousand dollars instead of fifty thousand.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 5, false, 'B. Because the police are calling him.', 'feedback5')">B. Because the police are calling him.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 5, false, 'C. Because Janey took his newspapers.', 'feedback5')">C. Because Janey took his newspapers.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 5, false, 'D. Because he broke his phone.', 'feedback5')">D. Because he broke his phone.</button>
                 <div id="feedback5" class="feedback"></div>
             </div>
         </div>
@@ -436,30 +420,18 @@
                 <img src="sec6.png" alt="Section 6 Illustration" class="story-image">
             </div>
             <div class="story-text">
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(140, 145)">▶️</button>
-                    <div class="text-content">Janey is looking for old newspapers. Early on Friday mornings, she takes them from every room in the house.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(145.5, 148)">▶️</button>
-                    <div class="text-content">Then later, the newspaper recycling truck arrives.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(148.5, 154)">▶️</button>
-                    <div class="text-content">Janey opens Harry's door and looks into his room. She always takes his old newspapers or bottles for recycling.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(154.5, 158)">▶️</button>
-                    <div class="text-content">"Ah!" she thinks. "There's a newspaper under Harry's bed."</div>
-                </div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(140, 145)">▶️</button><div class="text-content">Janey is looking for old newspapers. Early on Friday mornings, she takes them from every room in the house.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(145.5, 148)">▶️</button><div class="text-content">Then later, the newspaper recycling truck arrives.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(148.5, 154)">▶️</button><div class="text-content">Janey opens Harry's door and looks into his room. She always takes his old newspapers or bottles for recycling.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(154.5, 158)">▶️</button><div class="text-content">"Ah!" she thinks. "There's a newspaper under Harry's bed."</div></div>
             </div>
             <div class="quiz-section">
                 <h3>Comprehension Check</h3>
                 <p>What does Janey find under Harry's bed?</p>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback6')">A. A painting</button>
-                <button class="quiz-option" onclick="checkAnswer(this, true, 'feedback6')">B. A newspaper</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback6')">C. A blue glass vase</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback6')">D. A phone</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 6, false, 'A. A painting', 'feedback6')">A. A painting</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 6, true, 'B. A newspaper', 'feedback6')">B. A newspaper</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 6, false, 'C. A blue glass vase', 'feedback6')">C. A blue glass vase</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 6, false, 'D. A phone', 'feedback6')">D. A phone</button>
                 <div id="feedback6" class="feedback"></div>
             </div>
         </div>
@@ -471,30 +443,18 @@
                 <img src="sec7.png" alt="Section 7 Illustration" class="story-image">
             </div>
             <div class="story-text">
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(159, 164)">▶️</button>
-                    <div class="text-content">Janey puts the old newspapers into a black recycling box. She runs from the house and sees the truck.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(164.5, 168)">▶️</button>
-                    <div class="text-content">"Wait!" she says. And she quickly gives the box to one of the men.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(168.5, 172)">▶️</button>
-                    <div class="text-content">Harry is coming back to the house. He sees the recycling truck, and he sees Janey.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(172.5, 176)">▶️</button>
-                    <div class="text-content">"It's Friday!" he says. "The newspaper — ! Oh, no!"</div>
-                </div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(159, 164)">▶️</button><div class="text-content">Janey puts the old newspapers into a black recycling box. She runs from the house and sees the truck.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(164.5, 168)">▶️</button><div class="text-content">"Wait!" she says. And she quickly gives the box to one of the men.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(168.5, 172)">▶️</button><div class="text-content">Harry is coming back to the house. He sees the recycling truck, and he sees Janey.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(172.5, 176)">▶️</button><div class="text-content">"It's Friday!" he says. "The newspaper — ! Oh, no!"</div></div>
             </div>
             <div class="quiz-section">
                 <h3>Comprehension Check</h3>
                 <p>What does Harry realize when he sees Janey and the truck?</p>
-                <button class="quiz-option" onclick="checkAnswer(this, true, 'feedback7')">A. That today is Friday and his newspaper with the painting is inside the box.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback7')">B. That he forgot his wallet.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback7')">C. That the police are waiting for him.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback7')">D. That it is time to go to work.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 7, true, 'A. That today is Friday and his newspaper with the painting is inside the box.', 'feedback7')">A. That today is Friday and his newspaper with the painting is inside the box.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 7, false, 'B. That he forgot his wallet.', 'feedback7')">B. That he forgot his wallet.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 7, false, 'C. That the police are waiting for him.', 'feedback7')">C. That the police are waiting for him.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 7, false, 'D. That it is time to go to work.', 'feedback7')">D. That it is time to go to work.</button>
                 <div id="feedback7" class="feedback"></div>
             </div>
         </div>
@@ -506,30 +466,18 @@
                 <img src="sec8.png" alt="Section 8 Illustration" class="story-image">
             </div>
             <div class="story-text">
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(177, 180)">▶️</button>
-                    <div class="text-content">Harry chases after the truck. "Wait! Wait!" he says.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(180.5, 183)">▶️</button>
-                    <div class="text-content">Janey watches him. "What is he doing?" she thinks.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(183.5, 188)">▶️</button>
-                    <div class="text-content">Harry jumps into the back of the truck. "I want my newspaper!" he says. "Where's my newspaper?"</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(188.5, 191)">▶️</button>
-                    <div class="text-content">But there are thousands of newspapers in the truck.</div>
-                </div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(177, 180)">▶️</button><div class="text-content">Harry chases after the truck. "Wait! Wait!" he says.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(180.5, 183)">▶️</button><div class="text-content">Janey watches him. "What is he doing?" she thinks.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(183.5, 188)">▶️</button><div class="text-content">Harry jumps into the back of the truck. "I want my newspaper!" he says. "Where's my newspaper?"</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(188.5, 191)">▶️</button><div class="text-content">But there are thousands of newspapers in the truck.</div></div>
             </div>
             <div class="quiz-section">
                 <h3>Comprehension Check</h3>
                 <p>What does Harry do when he reaches the recycling truck?</p>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback8')">A. He calls the police.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback8')">B. He asks Janey for money.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, true, 'feedback8')">C. He jumps into the back of the truck to look for his newspaper.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback8')">D. He runs away from the city.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 8, false, 'A. He calls the police.', 'feedback8')">A. He calls the police.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 8, false, 'B. He asks Janey for money.', 'feedback8')">B. He asks Janey for money.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 8, true, 'C. He jumps into the back of the truck to look for his newspaper.', 'feedback8')">C. He jumps into the back of the truck to look for his newspaper.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 8, false, 'D. He runs away from the city.', 'feedback8')">D. He runs away from the city.</button>
                 <div id="feedback8" class="feedback"></div>
             </div>
         </div>
@@ -541,34 +489,19 @@
                 <img src="sec9.png" alt="Section 9 Illustration" class="story-image">
             </div>
             <div class="story-text">
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(192, 197)">▶️</button>
-                    <div class="text-content">Janey walks quickly from the house to the truck. "Why is your newspaper important, Harry?" she asks. "It's two days old."</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(197.5, 202)">▶️</button>
-                    <div class="text-content">But Harry doesn't hear her. He is thinking, "My million-dollar painting! Where is it?"</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(202.5, 206)">▶️</button>
-                    <div class="text-content">The men from the recycling truck are watching Harry, too. But now Janey is looking at Harry's shoe.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(206.5, 210)">▶️</button>
-                    <div class="text-content">"There's some blue glass in Harry's shoe," Janey thinks. "Where — ? Oh!"</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(210.5, 213)">▶️</button>
-                    <div class="text-content">Suddenly, she remembers the photo of the blue glass vase on the TV.</div>
-                </div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(192, 197)">▶️</button><div class="text-content">Janey walks quickly from the house to the truck. "Why is your newspaper important, Harry?" she asks. "It's two days old."</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(197.5, 202)">▶️</button><div class="text-content">But Harry doesn't hear her. He is thinking, "My million-dollar painting! Where is it?"</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(202.5, 206)">▶️</button><div class="text-content">The men from the recycling truck are watching Harry, too. But now Janey is looking at Harry's shoe.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(206.5, 210)">▶️</button><div class="text-content">"There's some blue glass in Harry's shoe," Janey thinks. "Where — ? Oh!"</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(210.5, 213)">▶️</button><div class="text-content">Suddenly, she remembers the photo of the blue glass vase on the TV.</div></div>
             </div>
             <div class="quiz-section">
                 <h3>Comprehension Check</h3>
                 <p>What does Janey remember when she sees the blue glass in Harry's shoe?</p>
-                <button class="quiz-option" onclick="checkAnswer(this, true, 'feedback9')">A. The photo of the blue glass vase on TV.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback9')">B. Her mother's birthday.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback9')">C. The price of the painting.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback9')">D. Her homework.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 9, true, 'A. The photo of the blue glass vase on TV.', 'feedback9')">A. The photo of the blue glass vase on TV.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 9, false, 'B. Her mother\'s birthday.', 'feedback9')">B. Her mother's birthday.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 9, false, 'C. The price of the painting.', 'feedback9')">C. The price of the painting.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 9, false, 'D. Her homework.', 'feedback9')">D. Her homework.</button>
                 <div id="feedback9" class="feedback"></div>
             </div>
         </div>
@@ -580,43 +513,51 @@
                 <img src="sec10.png" alt="Section 10 Illustration" class="story-image">
             </div>
             <div class="story-text">
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(214, 217)">▶️</button>
-                    <div class="text-content">The men from the recycling truck are angry. "We're going now," they are saying. "We're late."</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(217.5, 219)">▶️</button>
-                    <div class="text-content">"But I want my newspaper!" Harry says.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(219.5, 226)">▶️</button>
-                    <div class="text-content">In the house, Janey is talking to the police on the telephone. "Maybe I'm wrong," she is saying. "But there's blue glass in his shoe... What?... Yes, he's looking for the newspaper now."</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(226.5, 230)">▶️</button>
-                    <div class="text-content">Two policemen arrive quickly. "Let's look at your shoe," they say to Harry.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(230.5, 235)">▶️</button>
-                    <div class="text-content">One of the policemen takes the glass from Harry's shoe. "This is a very expensive piece of glass," he says. "From a very expensive vase. Remember?"</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(235.5, 238)">▶️</button>
-                    <div class="text-content">Suddenly, Harry understands. "Oh, no!" he says.</div>
-                </div>
-                <div class="audio-line">
-                    <button class="play-btn" onclick="playAudio(238.5, 246)">▶️</button>
-                    <div class="text-content">Later, they find the right newspaper—and they find the painting. "Good work, Janey," one of the policemen says. "And there's a reward."</div>
-                </div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(214, 217)">▶️</button><div class="text-content">The men from the recycling truck are angry. "We're going now," they are saying. "We're late."</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(217.5, 219)">▶️</button><div class="text-content">"But I want my newspaper!" Harry says.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(219.5, 226)">▶️</button><div class="text-content">In the house, Janey is talking to the police on the telephone. "Maybe I'm wrong," she is saying. "But there's blue glass in his shoe... What?... Yes, he's looking for the newspaper now."</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(226.5, 230)">▶️</button><div class="text-content">Two policemen arrive quickly. "Let's look at your shoe," they say to Harry.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(230.5, 235)">▶️</button><div class="text-content">One of the policemen takes the glass from Harry's shoe. "This is a very expensive piece of glass," he says. "From a very expensive vase. Remember?"</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(235.5, 238)">▶️</button><div class="text-content">Suddenly, Harry understands. "Oh, no!" he says.</div></div>
+                <div class="audio-line"><button class="play-btn" onclick="playAudio(238.5, 246)">▶️</button><div class="text-content">Later, they find the right newspaper—and they find the painting. "Good work, Janey," one of the policemen says. "And there's a reward."</div></div>
             </div>
             <div class="quiz-section">
                 <h3>Comprehension Check</h3>
                 <p>What do the police find in the truck later?</p>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback10')">A. Only old bottles.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, true, 'feedback10')">B. The right newspaper and the million-dollar painting.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback10')">C. Harry's telephone.</button>
-                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback10')">D. A second vase.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 10, false, 'A. Only old bottles.', 'feedback10')">A. Only old bottles.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 10, true, 'B. The right newspaper and the million-dollar painting.', 'feedback10')">B. The right newspaper and the million-dollar painting.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 10, false, 'C. Harry\'s telephone.', 'feedback10')">C. Harry's telephone.</button>
+                <button class="quiz-option" onclick="checkAnswer(this, 10, false, 'D. A second vase.', 'feedback10')">D. A second vase.</button>
                 <div id="feedback10" class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- SECTION 11: RESULTS DASHBOARD -->
+        <div id="section-11" class="section-container">
+            <div class="results-header">
+                <h2>🎉 Final Results & Summary</h2>
+                <p>You have completed the entire story! Here is your performance overview:</p>
+            </div>
+
+            <!-- Gráfico de Anillos / Resumen visual -->
+            <div class="donut-chart-container" id="donut-chart-bg">
+                <div class="donut-hole" id="donut-percentage">0%</div>
+            </div>
+
+            <div class="results-summary-cards">
+                <div class="result-card card-correct">
+                    Correct: <span id="count-correct">0</span>/10
+                </div>
+                <div class="result-card card-wrong">
+                    Incorrect: <span id="count-wrong">0</span>/10
+                </div>
+            </div>
+
+            <div class="breakdown-list">
+                <h3>Detailed Answer Breakdown</h3>
+                <div id="breakdown-container">
+                    <!-- Se llenará automáticamente con JavaScript -->
+                </div>
             </div>
         </div>
 
@@ -625,14 +566,29 @@
     <footer>
         <button id="btn-prev" class="nav-btn" onclick="changePage(-1)" disabled>« Previous</button>
         <button id="btn-home" class="nav-btn" onclick="goHome()">Home</button>
-        <span id="progress-indicator">Page 1 of 10</span>
+        <span id="progress-indicator">Page 1 of 11</span>
         <button id="btn-next" class="nav-btn" onclick="changePage(1)">Next »</button>
     </footer>
 
     <script>
-        const totalPages = 10;
+        const totalPages = 11;
         let currentPage = 1;
-        const implementedPages = 10; // ¡Todas las páginas completadas!
+        const implementedPages = 11;
+
+        // Estructura para almacenar las respuestas del usuario
+        const userAnswers = {};
+        const quizData = {
+            1: { question: "Where does the story begin?", correct: "C. The Ritesville town art gallery" },
+            2: { question: "What breaks into a hundred pieces?", correct: "B. A beautiful blue glass vase" },
+            3: { question: "What does Harry do with the painting once he is in his room?", correct: "B. He puts it in a newspaper under his bed." },
+            4: { question: "What does Janey realize when she talks to her mother?", correct: "A. That today is Friday and the recycling truck is coming." },
+            5: { question: "Why is Harry unhappy during his telephone conversation?", correct: "A. Because the man in Seattle only offers five thousand dollars instead of fifty thousand." },
+            6: { question: "What does Janey find under Harry's bed?", correct: "B. A newspaper" },
+            7: { question: "What does Harry realize when he sees Janey and the truck?", correct: "A. That today is Friday and his newspaper with the painting is inside the box." },
+            8: { question: "What does Harry do when he reaches the recycling truck?", correct: "C. He jumps into the back of the truck to look for his newspaper." },
+            9: { question: "What does Janey remember when she sees the blue glass in Harry's shoe?", correct: "A. The photo of the blue glass vase on TV." },
+            10: { question: "What do the police find in the truck later?", correct: "B. The right newspaper and the million-dollar painting." }
+        };
 
         function changePage(direction) {
             let newPage = currentPage + direction;
@@ -641,6 +597,12 @@
                 document.getElementById(`section-${currentPage}`).classList.remove('active');
                 currentPage = newPage;
                 document.getElementById(`section-${currentPage}`).classList.add('active');
+                
+                // Si llegamos a la página 11, generamos los resultados dinámicamente
+                if (currentPage === 11) {
+                    generateResults();
+                }
+
                 updateNavigation();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
@@ -661,10 +623,16 @@
             document.getElementById('btn-next').disabled = currentPage === implementedPages;
         }
 
-        function checkAnswer(button, isCorrect, feedbackId) {
+        function checkAnswer(button, sectionNum, isCorrect, selectedText, feedbackId) {
             const parent = button.parentElement;
             const options = parent.querySelectorAll('.quiz-option');
             const feedbackEl = document.getElementById(feedbackId);
+
+            // Guardar respuesta del usuario
+            userAnswers[sectionNum] = {
+                isCorrect: isCorrect,
+                selected: selectedText
+            };
 
             options.forEach(opt => {
                 opt.disabled = true;
@@ -686,6 +654,50 @@
                     }
                 });
             }
+        }
+
+        function generateResults() {
+            let correctCount = 0;
+            let wrongCount = 0;
+            let breakdownHTML = '';
+
+            for (let i = 1; i <= 10; i++) {
+                const answer = userAnswers[i];
+                const qInfo = quizData[i];
+
+                if (answer && answer.isCorrect) {
+                    correctCount++;
+                    breakdownHTML += `
+                        <div class="breakdown-item item-correct">
+                            <strong>Section ${i}:</strong> ${qInfo.question}<br>
+                            ✅ <em>Your answer:</em> ${answer.selected} (Correct)
+                        </div>`;
+                } else {
+                    wrongCount++;
+                    const userSelectedText = answer ? answer.selected : "No answered / Skipped";
+                    breakdownHTML += `
+                        <div class="breakdown-item item-wrong">
+                            <strong>Section ${i}:</strong> ${qInfo.question}<br>
+                            ❌ <em>Your answer:</em> ${userSelectedText} (Incorrect)<br>
+                            💡 <em>Correct answer:</em> ${qInfo.correct}
+                        </div>`;
+                }
+            }
+
+            // Actualizar contadores en pantalla
+            document.getElementById('count-correct').innerText = correctCount;
+            document.getElementById('count-wrong').innerText = wrongCount;
+
+            // Calcular porcentaje y pintar gráfico circular estilo anillo (con colores verde y rojo)
+            let percentage = Math.round((correctCount / 10) * 100);
+            document.getElementById('donut-percentage').innerText = percentage + '%';
+            
+            let greenDegrees = (correctCount / 10) * 360;
+            document.getElementById('donut-chart-bg').style.background = 
+                `conic-gradient(#28a745 0deg ${greenDegrees}deg, #dc3545 ${greenDegrees}deg 360deg)`;
+
+            // Inyectar el listado detallado
+            document.getElementById('breakdown-container').innerHTML = breakdownHTML;
         }
 
         const player = document.getElementById('main-audio-player');

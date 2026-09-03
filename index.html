@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Newspaper Chase - Interactive Audiobook</title>
+    <style>
+        :root {
+            --primary-blue: #003366;
+            --light-blue: #e6f0fa;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --correct-green: #28a745;
+            --wrong-red: #dc3545;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-blue);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        main {
+            flex: 1;
+            max-width: 800px;
+            margin: 2rem auto;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            width: 90%;
+        }
+
+        .section-container {
+            display: none;
+        }
+
+        .section-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .image-prompt-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--primary-blue);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .audio-line {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .audio-line:hover {
+            background-color: var(--light-blue);
+        }
+
+        .play-btn {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .text-content {
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .quiz-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px dashed var(--light-blue);
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background-color: var(--white);
+            border: 1px solid var(--primary-blue);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover {
+            background-color: var(--light-blue);
+        }
+
+        .quiz-option.correct {
+            background-color: var(--correct-green);
+            color: var(--white);
+            border-color: var(--correct-green);
+        }
+
+        .quiz-option.wrong {
+            background-color: var(--wrong-red);
+            color: var(--white);
+            border-color: var(--wrong-red);
+        }
+
+        .feedback {
+            margin-top: 1rem;
+            font-weight: bold;
+            min-height: 24px;
+        }
+
+        footer {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            background-color: var(--white);
+            color: var(--primary-blue);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .nav-btn:disabled {
+            background-color: #cccccc;
+            color: #666666;
+            cursor: not-allowed;
+        }
+
+        #progress-indicator {
+            font-weight: bold;
+            margin: 0 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .audio-line {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .play-btn {
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- REPRODUCTOR DE AUDIO OCULTO -->
+    <!-- IMPORTANTE: Cambia "audio.m4a" por el nombre exacto de tu archivo si es diferente -->
+    <audio id="main-audio-player" src="audio.m4a" preload="auto"></audio>
+
+    <header>
+        <h1>The Newspaper Chase</h1>
+        <p>Interactive Audiobook</p>
+    </header>
+
+    <main>
+        <!-- SECTION 1 -->
+        <div id="section-1" class="section-container active">
+            <h2>Section 1: The Robbery</h2>
+            
+            <div class="image-prompt-box">
+                <strong>Instrucción para IA de Imagen:</strong> Una vista desde atrás de un hombre (Harry) de pie frente a un marco de cuadro vacío en una galería de arte oscura y elegante. Sostiene un cuchillo y el cuadro ya está en sus manos. La luz de la luna entra por una ventana abierta detrás de él.
+            </div>
+
+            <div class="story-text">
+                <!-- Para cada botón, modifica los números. playAudio(segundo_inicio, segundo_fin) -->
+                <div class="audio-line">
+                    <button class="play-btn" onclick="playAudio(0, 3)">▶️</button>
+                    <div class="text-content">The time is one o'clock in the morning.</div>
+                </div>
+                <div class="audio-line">
+                    <button class="play-btn" onclick="playAudio(3.5, 6.5)">▶️</button>
+                    <div class="text-content">The place is the Ritesville town art gallery.</div>
+                </div>
+                <div class="audio-line">
+                    <button class="play-btn" onclick="playAudio(7, 11)">▶️</button>
+                    <div class="text-content">A window opens and a man comes in. It's Harry Black. He is a thief.</div>
+                </div>
+                <div class="audio-line">
+                    <button class="play-btn" onclick="playAudio(11.5, 15)">▶️</button>
+                    <div class="text-content">He looks at the painting. It is a painting of a woman.</div>
+                </div>
+                <div class="audio-line">
+                    <button class="play-btn" onclick="playAudio(15.5, 20)">▶️</button>
+                    <div class="text-content">Harry moves quickly across the room. He stands and looks at the painting.</div>
+                </div>
+                <div class="audio-line">
+                    <button class="play-btn" onclick="playAudio(20.5, 26)">▶️</button>
+                    <div class="text-content">"A million dollars for this?" he thinks. "I don't understand it."</div>
+                </div>
+                <div class="audio-line">
+                    <button class="play-btn" onclick="playAudio(26.5, 29)">▶️</button>
+                    <div class="text-content">But he takes a knife from his coat.</div>
+                </div>
+                <div class="audio-line">
+                    <button class="play-btn" onclick="playAudio(29.5, 34)">▶️</button>
+                    <div class="text-content">Then he takes the painting very, very slowly from its frame.</div>
+                </div>
+            </div>
+
+            <div class="quiz-section">
+                <h3>Comprehension Check</h3>
+                <p>Where does the story begin?</p>
+                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback1')">A. A police station</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback1')">B. A school</button>
+                <button class="quiz-option" onclick="checkAnswer(this, true, 'feedback1')">C. The Ritesville town art gallery</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback1')">D. A hotel</button>
+                <div id="feedback1" class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- SECTION 2 -->
+        <div id="section-2" class="section-container">
+            <h2>Section 2: The Broken Vase</h2>
+            
+            <div class="image-prompt-box">
+                <strong>Instrucción para IA de Imagen:</strong> Un primer plano del suelo, con los fragmentos de un jarrón de vidrio azul esparcidos. Sobre los fragmentos se ve la sombra o la parte inferior de un zapato (el pie de Harry) mientras corre hacia la ventana.
+            </div>
+
+            <div class="story-text">
+                <div class="audio-line">
+                    <button class="play-btn" onclick="playAudio(35, 40)">▶️</button>
+                    <div class="text-content">Harry goes back across the room to the window, but he walks into a table.</div>
+                </div>
+                <div class="audio-line">
+                    <button class="play-btn" onclick="playAudio(40.5, 43)">▶️</button>
+                    <div class="text-content">There is a beautiful blue glass vase on the table.</div>
+                </div>
+                <div class="audio-line">
+                    <button class="play-btn" onclick="playAudio(43.5, 47)">▶️</button>
+                    <div class="text-content">It falls on the floor and breaks into a hundred pieces.</div>
+                </div>
+                <div class="audio-line">
+                    <button class="play-btn" onclick="playAudio(47.5, 52)">▶️</button>
+                    <div class="text-content">Harry smiles. "Is that a million-dollar vase?" he thinks. "It isn't now!"</div>
+                </div>
+                <div class="audio-line">
+                    <button class="play-btn" onclick="playAudio(52.5, 56)">▶️</button>
+                    <div class="text-content">He runs across the pieces of glass to the window.</div>
+                </div>
+            </div>
+
+            <div class="quiz-section">
+                <h3>Comprehension Check</h3>
+                <p>What breaks into a hundred pieces?</p>
+                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback2')">A. A window</button>
+                <button class="quiz-option" onclick="checkAnswer(this, true, 'feedback2')">B. A beautiful blue glass vase</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback2')">C. A painting</button>
+                <button class="quiz-option" onclick="checkAnswer(this, false, 'feedback2')">D. A knife</button>
+                <div id="feedback2" class="feedback"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <button id="btn-prev" class="nav-btn" onclick="changePage(-1)" disabled>« Previous</button>
+        <button id="btn-home" class="nav-btn" onclick="goHome()">Home</button>
+        <span id="progress-indicator">Page 1 of 10</span>
+        <button id="btn-next" class="nav-btn" onclick="changePage(1)">Next »</button>
+    </footer>
+
+    <script>
+        // --- NAVEGACIÓN Y QUIZ (Igual que antes) ---
+        const totalPages = 10;
+        let currentPage = 1;
+        const implementedPages = 2;
+
+        function changePage(direction) {
+            let newPage = currentPage + direction;
+            if (newPage >= 1 && newPage <= implementedPages) {
+                // Detener audio al cambiar de página
+                stopAudio(); 
+                document.getElementById(`section-${currentPage}`).classList.remove('active');
+                currentPage = newPage;
+                document.getElementById(`section-${currentPage}`).classList.add('active');
+                updateNavigation();
+            }
+        }
+
+        function goHome() {
+            stopAudio();
+            document.getElementById(`section-${currentPage}`).classList.remove('active');
+            currentPage = 1;
+            document.getElementById(`section-${currentPage}`).classList.add('active');
+            updateNavigation();
+        }
+
+        function updateNavigation() {
+            document.getElementById('progress-indicator').innerText = `Page ${currentPage} of ${totalPages}`;
+            document.getElementById('btn-prev').disabled = currentPage === 1;
+            document.getElementById('btn-next').disabled = currentPage === implementedPages;
+        }
+
+        function checkAnswer(button, isCorrect, feedbackId) {
+            const parent = button.parentElement;
+            const options = parent.querySelectorAll('.quiz-option');
+            const feedbackEl = document.getElementById(feedbackId);
+
+            options.forEach(opt => {
+                opt.disabled = true;
+                opt.style.cursor = 'not-allowed';
+            });
+
+            if (isCorrect) {
+                button.classList.add('correct');
+                feedbackEl.style.color = 'var(--correct-green)';
+                feedbackEl.innerText = "Correct! Well done.";
+            } else {
+                button.classList.add('wrong');
+                feedbackEl.style.color = 'var(--wrong-red)';
+                feedbackEl.innerText = "Incorrect. Please review the text.";
+                
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        // --- NUEVA LÓGICA DE AUDIO (SPRITES DE TIEMPO) ---
+        const player = document.getElementById('main-audio-player');
+        let checkAudioInterval;
+
+        function playAudio(startTime, endTime) {
+            // 1. Limpiar reproducciones anteriores
+            stopAudio();
+
+            // 2. Colocar el audio en el segundo de inicio
+            player.currentTime = startTime;
+
+            // 3. Reproducir
+            player.play().then(() => {
+                // 4. Monitorear el tiempo constantemente para pausarlo en el endTime
+                checkAudioInterval = setInterval(() => {
+                    if (player.currentTime >= endTime) {
+                        stopAudio();
+                    }
+                }, 50); // Revisa cada 50 milisegundos
+            }).catch(error => {
+                console.log("Error reproduciendo audio. El usuario debe interactuar con la página primero.", error);
+            });
+        }
+
+        function stopAudio() {
+            player.pause();
+            clearInterval(checkAudioInterval);
+        }
+    </script>
+</body>
+</html>

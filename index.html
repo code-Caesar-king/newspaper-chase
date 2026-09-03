@@ -58,14 +58,19 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .image-prompt-box {
-            background-color: #f8f9fa;
-            border-left: 4px solid var(--primary-blue);
-            padding: 1rem;
+        /* Estilo para las imágenes reales */
+        .image-container {
+            text-align: center;
             margin-bottom: 2rem;
-            font-style: italic;
-            font-size: 0.9rem;
-            color: #555;
+        }
+
+        .story-image {
+            max-width: 100%;
+            height: auto;
+            max-height: 350px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border: 1px solid #ddd;
         }
 
         .audio-line {
@@ -194,7 +199,6 @@
 <body>
 
     <!-- REPRODUCTOR DE AUDIO OCULTO -->
-    <!-- IMPORTANTE: Cambia "audio.m4a" por el nombre exacto de tu archivo si es diferente -->
     <audio id="main-audio-player" src="audio.m4a" preload="auto"></audio>
 
     <header>
@@ -207,12 +211,12 @@
         <div id="section-1" class="section-container active">
             <h2>Section 1: The Robbery</h2>
             
-            <div class="image-prompt-box">
-                <strong>Instrucción para IA de Imagen:</strong> Una vista desde atrás de un hombre (Harry) de pie frente a un marco de cuadro vacío en una galería de arte oscura y elegante. Sostiene un cuchillo y el cuadro ya está en sus manos. La luz de la luna entra por una ventana abierta detrás de él.
+            <!-- IMAGEN DE LA SECCIÓN 1 -->
+            <div class="image-container">
+                <img src="sec1.png" alt="Section 1 Illustration" class="story-image">
             </div>
 
             <div class="story-text">
-                <!-- Para cada botón, modifica los números. playAudio(segundo_inicio, segundo_fin) -->
                 <div class="audio-line">
                     <button class="play-btn" onclick="playAudio(0, 3)">▶️</button>
                     <div class="text-content">The time is one o'clock in the morning.</div>
@@ -262,8 +266,9 @@
         <div id="section-2" class="section-container">
             <h2>Section 2: The Broken Vase</h2>
             
-            <div class="image-prompt-box">
-                <strong>Instrucción para IA de Imagen:</strong> Un primer plano del suelo, con los fragmentos de un jarrón de vidrio azul esparcidos. Sobre los fragmentos se ve la sombra o la parte inferior de un zapato (el pie de Harry) mientras corre hacia la ventana.
+            <!-- IMAGEN DE LA SECCIÓN 2 -->
+            <div class="image-container">
+                <img src="sec2.png" alt="Section 2 Illustration" class="story-image">
             </div>
 
             <div class="story-text">
@@ -310,7 +315,6 @@
     </footer>
 
     <script>
-        // --- NAVEGACIÓN Y QUIZ (Igual que antes) ---
         const totalPages = 10;
         let currentPage = 1;
         const implementedPages = 2;
@@ -318,7 +322,6 @@
         function changePage(direction) {
             let newPage = currentPage + direction;
             if (newPage >= 1 && newPage <= implementedPages) {
-                // Detener audio al cambiar de página
                 stopAudio(); 
                 document.getElementById(`section-${currentPage}`).classList.remove('active');
                 currentPage = newPage;
@@ -368,27 +371,20 @@
             }
         }
 
-        // --- NUEVA LÓGICA DE AUDIO (SPRITES DE TIEMPO) ---
         const player = document.getElementById('main-audio-player');
         let checkAudioInterval;
 
         function playAudio(startTime, endTime) {
-            // 1. Limpiar reproducciones anteriores
             stopAudio();
-
-            // 2. Colocar el audio en el segundo de inicio
             player.currentTime = startTime;
-
-            // 3. Reproducir
             player.play().then(() => {
-                // 4. Monitorear el tiempo constantemente para pausarlo en el endTime
                 checkAudioInterval = setInterval(() => {
                     if (player.currentTime >= endTime) {
                         stopAudio();
                     }
-                }, 50); // Revisa cada 50 milisegundos
+                }, 50);
             }).catch(error => {
-                console.log("Error reproduciendo audio. El usuario debe interactuar con la página primero.", error);
+                console.log("Error reproduciendo audio:", error);
             });
         }
 
